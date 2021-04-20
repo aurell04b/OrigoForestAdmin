@@ -6,10 +6,10 @@ module.exports = (sequelize, DataTypes) => {
   // Learn more here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/models/enrich-your-models#declaring-a-new-field-in-a-model
   const Products = sequelize.define('products', {
     productionStart: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
     },
     productionEnd: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
     },
     label: {
       type: DataTypes.STRING,
@@ -65,10 +65,10 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'Choisir le mode de livraison',
     },
     deliveryDeadline: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
     },
     effectiveDelivery: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
     },
     brokerName: {
       type: DataTypes.STRING,

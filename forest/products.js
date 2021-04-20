@@ -8,7 +8,7 @@ const models = require('../models/');
 // - Smart segments: https://docs.forestadmin.com/documentation/reference-guide/segments/smart-segments
 collection('products', {
   actions: [{ 
-    name: 'Mensualiser'
+    name: 'Mensualisers'
   }],
   fields: [{
     field: 'production_period',
