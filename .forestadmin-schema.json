@@ -101,21 +101,6 @@
       "inverseOf": null,
       "validations": []
     }, {
-      "field": "resourceId",
-      "type": "Number",
-      "defaultValue": null,
-      "enums": null,
-      "integration": null,
-      "isFilterable": true,
-      "isPrimaryKey": false,
-      "isReadOnly": false,
-      "isRequired": false,
-      "isSortable": true,
-      "isVirtual": false,
-      "reference": null,
-      "inverseOf": null,
-      "validations": []
-    }, {
       "field": "resourceType",
       "type": "String",
       "defaultValue": null,
@@ -817,7 +802,7 @@
       "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
-      "reference": "activeAdminComments.dealId",
+      "reference": "activeAdminComments.resourceId",
       "inverseOf": null,
       "relationship": "HasMany",
       "validations": []
@@ -1036,7 +1021,7 @@
       "validations": []
     }, {
       "field": "valeur",
-      "type": "String",
+      "type": "Integer",
       "defaultValue": null,
       "enums": null,
       "integration": null,
@@ -1051,7 +1036,7 @@
       "validations": []
     }, {
       "field": "volume",
-      "type": "Ingeger",
+      "type": "Integer",
       "defaultValue": null,
       "enums": null,
       "integration": null,
@@ -1704,6 +1689,36 @@
       "inverseOf": null,
       "validations": []
     }, {
+      "field": "cancelFees",
+      "type": "Number",
+      "defaultValue": 0,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "commentProduct",
+      "type": "String",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
       "field": "createdAt",
       "type": "Date",
       "defaultValue": null,
@@ -1735,8 +1750,53 @@
       "relationship": "BelongsTo",
       "validations": []
     }, {
-      "field": "deliveryDeadline",
-      "type": "Dateonly",
+      "field": "definitif",
+      "type": "Boolean",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": false,
+      "isPrimaryKey": false,
+      "isReadOnly": true,
+      "isRequired": false,
+      "isSortable": false,
+      "isVirtual": true,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "definitif",
+      "type": "Boolean",
+      "defaultValue": false,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "indexedPrice",
+      "type": "Boolean",
+      "defaultValue": false,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "deliveryClient",
+      "type": "Date",
       "defaultValue": null,
       "enums": null,
       "integration": null,
@@ -1749,6 +1809,25 @@
       "reference": null,
       "inverseOf": null,
       "validations": []
+    }, {
+      "field": "deliveryDeadline",
+      "type": "Date",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": true,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": [{
+        "message": null,
+        "type": "is present",
+        "value": null
+      }]
     }, {
       "field": "deliveryMailSent",
       "type": "Boolean",
@@ -1780,8 +1859,23 @@
       "inverseOf": null,
       "validations": []
     }, {
+      "field": "tva",
+      "type": "Number",
+      "defaultValue": "0",
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
       "field": "effectiveDelivery",
-      "type": "Dateonly",
+      "type": "Date",
       "defaultValue": null,
       "enums": null,
       "integration": null,
@@ -1822,9 +1916,39 @@
       "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
-      "reference": "geographicZones.geographic_zone_id",
+      "reference": "geographicZones.geographicZoneId",
       "inverseOf": null,
       "relationship": "BelongsTo",
+      "validations": []
+    }, {
+      "field": "geographicZoneDeliveryId",
+      "type": "String",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "nFacture",
+      "type": "String",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
       "validations": []
     }, {
       "field": "id",
@@ -1845,6 +1969,21 @@
       "field": "label",
       "type": "String",
       "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "labelFees",
+      "type": "Number",
+      "defaultValue": 0,
       "enums": null,
       "integration": null,
       "isFilterable": true,
@@ -1932,8 +2071,37 @@
       "inverseOf": null,
       "validations": []
     }, {
-      "field": "productionEnd",
-      "type": "Dateonly",
+      "field": "devise",
+      "type": "String",
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "exchangeRate",
+      "type": "Number",
+      "defaultValue": 0.000,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "paymentDelivery",
+      "type": "Date",
       "defaultValue": null,
       "enums": null,
       "integration": null,
@@ -1947,9 +2115,9 @@
       "inverseOf": null,
       "validations": []
     }, {
-      "field": "productionStart",
-      "type": "Dateonly",
-      "defaultValue": null,
+      "field": "validityPeriod",
+      "type": "Number",
+      "defaultValue": 0,
       "enums": null,
       "integration": null,
       "isFilterable": true,
@@ -1961,6 +2129,45 @@
       "reference": null,
       "inverseOf": null,
       "validations": []
+    },
+     {
+      "field": "productionEnd",
+      "type": "Date",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": true,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": [{
+        "message": null,
+        "type": "is present",
+        "value": null
+      }]
+    }, {
+      "field": "productionStart",
+      "type": "Date",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": true,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": [{
+        "message": null,
+        "type": "is present",
+        "value": null
+      }]
     }, {
       "field": "production_period",
       "type": "String",
@@ -1992,6 +2199,21 @@
       "inverseOf": null,
       "validations": []
     }, {
+      "field": "subvention",
+      "type": "Boolean",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
       "field": "techno",
       "type": "Number",
       "defaultValue": null,
@@ -2003,9 +2225,38 @@
       "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
-      "reference": "technos.techno_id",
+      "reference": "technos.technoId",
       "inverseOf": null,
       "relationship": "BelongsTo",
+      "validations": []
+    }, {
+      "field": "technoBis",
+      "type": ["String"],
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "technoDeliveryId",
+      "type": "String",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "inverseOf": null,
       "validations": []
     }, {
       "field": "updatedAt",
@@ -2024,8 +2275,23 @@
       "validations": []
     }, {
       "field": "value",
-      "type": "Number",
-      "defaultValue": 0,
+      "type": "Ingeger",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": false,
+      "isPrimaryKey": false,
+      "isReadOnly": true,
+      "isRequired": false,
+      "isSortable": false,
+      "isVirtual": true,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "prePaid",
+      "type": "Boolean",
+      "defaultValue": false,
       "enums": null,
       "integration": null,
       "isFilterable": true,
@@ -2040,7 +2306,7 @@
     }, {
       "field": "volume",
       "type": "Number",
-      "defaultValue": 0,
+      "defaultValue": null,
       "enums": null,
       "integration": null,
       "isFilterable": true,
@@ -2055,10 +2321,36 @@
     }],
     "segments": [],
     "actions": [{
+      "name": "Duplicate",
+      "type": "bulk",
+      "baseUrl": null,
+      "endpoint": "/forest/actions/duplicate",
+      "httpMethod": "POST",
+      "redirect": null,
+      "download": false,
+      "fields": [],
+      "hooks": {
+        "load": false,
+        "change": []
+      }
+    }, {
       "name": "Mensualiser",
       "type": "bulk",
       "baseUrl": null,
       "endpoint": "/forest/actions/mensualiser",
+      "httpMethod": "POST",
+      "redirect": null,
+      "download": false,
+      "fields": [],
+      "hooks": {
+        "load": false,
+        "change": []
+      }
+    }, {
+      "name": "Test",
+      "type": "bulk",
+      "baseUrl": null,
+      "endpoint": "/forest/actions/test",
       "httpMethod": "POST",
       "redirect": null,
       "download": false,

@@ -8,13 +8,38 @@ const models = require('../models/');
 // - Smart segments: https://docs.forestadmin.com/documentation/reference-guide/segments/smart-segments
 collection('products', {
   actions: [{ 
-    name: 'Mensualisé'
+    name: 'Duplicate'
+  },
+  { 
+    name: 'Mensualiser'
+  },
+  { 
+    name: 'Test'
   }],
   fields: [{
     field: 'production_period',
     type: 'String',
     get: (product) => {
       return `${product.productionStart} - ${product.productionEnd}`
+    }
+  },
+  {
+    field: 'value',
+    type: 'Ingeger',
+    get: (product) => {
+      return (product.volume * product.price).toFixed(2);
+    }
+  },
+  {
+    field: 'definitif',
+    type: 'Boolean',
+    get: (product) => {
+      if (product.effective_delivery) {
+        return (true);
+      }
+      else {
+        return (product.definitif);
+      }
     }
   },
   {

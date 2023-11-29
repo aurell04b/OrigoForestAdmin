@@ -16,7 +16,7 @@ collection('deals', {
     get: (deal) => {
       const newdate = new Date(Date.parse(deal.signatureDate))
       if (deal.signatureDate) {
-        return `${deal.entity.name.substring(0,6)}-${newdate.getFullYear() - 2000}${newdate.getMonth() < 9 ? '0' : '' }${newdate.getMonth() + 1}${newdate.getDate()}-${deal.id}`
+        return `${deal.entity.name.substring(0,6)}-${newdate.getFullYear() - 2000}${newdate.getMonth() < 9 ? '0' : '' }${newdate.getMonth() + 1}${('0' + newdate.getDate()).slice(-2)}-${deal.id}`
       }
       return `${deal.entity.name.substring(0,6)}--${deal.id}`
     }
@@ -34,39 +34,39 @@ collection('deals', {
   },
   {
     field: 'volume',
-    type: 'Ingeger',
+    type: 'Integer',
     get: (deal) => {
-      tmp_volume = 0
       return models.products
       .findAll({ where: { deal_id: deal.id } })
-      .then(results => {
+      .then((results) => {
+        result_tmp = 0
+        tmp_volume = 0
         for (let i = 0; results[i]; i++) {
+          result_tmp = results[i].volume
           if (results[i].position == 1) {
-            tmp_volume -= results[i].volume
+            tmp_volume = tmp_volume - result_tmp
           }
           else {
-            tmp_volume += results[i].volume
+            tmp_volume = tmp_volume + result_tmp
           }
         }
-        if (!tmp_volume)
-          return "0"
         return tmp_volume
       });
-      
     }
   },
   {
     field: 'valeur',
-    type: 'String',
+    type: 'Integer',
     get: (deal) => {
       tmp_value = 0
       return models.products
       .findAll({ where: { deal_id: deal.id } })
       .then(results => {
+        tmp_value = 0
         for (let i = 0; results[i]; i++) {
-          tmp_value += results[i].value
+          tmp_value = tmp_value + (results[i].price * results[i].volume)
         }
-        return tmp_value.toFixed(2) + " €"
+        return tmp_value.toFixed(2)
       });
     }
   }],

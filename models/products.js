@@ -7,9 +7,11 @@ module.exports = (sequelize, DataTypes) => {
   const Products = sequelize.define('products', {
     productionStart: {
       type: DataTypes.DATE,
+      allowNull: false,
     },
     productionEnd: {
       type: DataTypes.DATE,
+      allowNull: false,
     },
     label: {
       type: DataTypes.STRING,
@@ -18,13 +20,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DOUBLE,
       defaultValue: Sequelize.literal('0.0'),
     },
+    devise: {
+      type: DataTypes.STRING,
+    },
     volume: {
       type: DataTypes.INTEGER,
-      defaultValue: 0,
-    },
-    value: {
-      type: DataTypes.DOUBLE,
-      defaultValue: Sequelize.literal('0.0'),
     },
     register: {
       type: DataTypes.INTEGER,
@@ -66,6 +66,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     deliveryDeadline: {
       type: DataTypes.DATE,
+      allowNull: false,
     },
     effectiveDelivery: {
       type: DataTypes.DATE,
@@ -79,6 +80,60 @@ module.exports = (sequelize, DataTypes) => {
     },
     entityId: {
       type: DataTypes.BIGINT,
+    },
+    definitif: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    deliveryClient: {
+      type: DataTypes.DATE,
+    },
+    technoBis: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+    },
+    subvention: {
+      type: DataTypes.BOOLEAN,
+    },
+    labelFees: {
+      type: DataTypes.DOUBLE,
+      defaultValue: Sequelize.literal('0.0'),
+    },
+    cancelFees: {
+      type: DataTypes.DOUBLE,
+      defaultValue: Sequelize.literal('0.0'),
+    },
+    commentProduct: {
+      type: DataTypes.TEXT,
+    },
+    technoDeliveryId: {
+      type: DataTypes.STRING,
+    },
+    prePaid: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    geographicZoneDeliveryId: {
+      type: DataTypes.STRING,
+    },
+    exchangeRate: {
+      type: DataTypes.FLOAT,
+    },
+    paymentDelivery: {
+      type: DataTypes.DATE,
+    },
+    validityPeriod: {
+      type: DataTypes.INTEGER,
+    },
+    nFacture: {
+      type: DataTypes.STRING,
+    },
+    indexedPrice: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    tva: {
+      type: DataTypes.INTEGER,
+      defaultValue: '',
     },
   }, {
     tableName: 'products',
@@ -97,12 +152,18 @@ module.exports = (sequelize, DataTypes) => {
       as: 'entity'
     });
     Products.belongsTo(models.technos, {
-      foreignKey: 'techno_id',
+      foreignKey: {
+        field: 'techno_id',
+        allowNull: false
+      },
       as: 'techno'
     });
     Products.belongsTo(models.geographicZones, {
-      foreignKey: 'geographic_zone_id',
-      as: 'geographicZone'
+      foreignKey: {
+        field: 'geographic_zone_id',
+        allowNull: false
+      },
+      as: 'geographicZone',
     });
   };
 

@@ -57,7 +57,9 @@ module.exports = (sequelize, DataTypes) => {
     Deals.hasMany(models.products, {
       as: 'products'
     });
-    Deals.hasMany(models.activeAdminComments);
+    Deals.hasMany(models.activeAdminComments, {
+      foreignKey: 'resourceId'
+    });
   };
 
   return Deals;
