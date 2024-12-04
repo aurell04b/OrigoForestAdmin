@@ -7,11 +7,8 @@ const cors = require('cors');
 const { expressjwt } = require('express-jwt');
 const morgan = require('morgan');
 const jwt = require('jsonwebtoken');
-const {
-  errorHandler,
-  ensureAuthenticated,
-  PUBLIC_ROUTES,
-} = require('forest-express-sequelize');
+const { errorHandler, ensureAuthenticated, PUBLIC_ROUTES } = require('forest-express-sequelize');
+const { createAgent, createSequelizeDataSource } = require('@forestadmin/agent');
 
 const app = express();
 
@@ -48,8 +45,8 @@ app.use(
   '/forest/authentication',
   cors((req, callback) => {
     const corsOptions = { ...corsConfig };
-    if (req.headers.origin === 'null' || req.headers.origin === process.env.APPLICATION_URL) {
-      corsOptions.origin = true; // Accepte l'origine 'null' ou l'URL de l'application
+    if (req.headers.origin === 'null') {
+      corsOptions.origin = true; // Accepte l'origine 'null'
     }
     callback(null, corsOptions);
   })
@@ -144,6 +141,20 @@ app.post('/forest/authentication', (req, res) => {
     res.status(500).json({ error: 'Failed to generate token' });
   }
 });
+
+// Initialisation de l'agent Forest Admin
+const agent = createAgent({
+  authSecret: process.env.FOREST_AUTH_SECRET,
+  envSecret: process.env.FOREST_ENV_SECRET,
+  isProduction: process.env.NODE_ENV === 'production',
+})
+  .addDataSource(createSequelizeDataSource({
+    modelsDir: path.join(__dirname, 'models'),
+    sequelize: require('./models').sequelize,
+  }));
+
+// Utilisation de l'agent comme middleware
+app.use('/forest', agent.expressMiddleware());
 
 requireAll({
   dirname: path.join(__dirname, 'routes'),
