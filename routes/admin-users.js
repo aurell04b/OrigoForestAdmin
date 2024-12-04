@@ -40,7 +40,7 @@ router.get('/adminUsers/count', permissionMiddlewareCreator.list(), (request, re
 });
 
 // Get a Admin User
-router.get('/adminUsers/:recordId(?!count)', permissionMiddlewareCreator.details(), (request, response, next) => {
+router.get('/adminUsers/:recordId', permissionMiddlewareCreator.details(), (request, response, next) => {
   // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#get-a-record
   next();
 });

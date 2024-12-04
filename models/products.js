@@ -135,6 +135,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       defaultValue: '',
     },
+    gridConnected: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    centraleDate: {
+      type: DataTypes.DATE,
+    },
+    deliveryRequirement: {
+      type: DataTypes.STRING,
+    },
   }, {
     tableName: 'products',
     underscored: true,

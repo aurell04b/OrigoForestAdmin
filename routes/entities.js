@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('express'); 
 const { PermissionMiddlewareCreator } = require('forest-express-sequelize');
 const { entities } = require('../models');
 
@@ -11,49 +11,41 @@ const permissionMiddlewareCreator = new PermissionMiddlewareCreator('entities');
 
 // Create a Entity
 router.post('/entities', permissionMiddlewareCreator.create(), (request, response, next) => {
-  // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#create-a-record
   next();
 });
 
 // Update a Entity
 router.put('/entities/:recordId', permissionMiddlewareCreator.update(), (request, response, next) => {
-  // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#update-a-record
   next();
 });
 
 // Delete a Entity
 router.delete('/entities/:recordId', permissionMiddlewareCreator.delete(), (request, response, next) => {
-  // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#delete-a-record
   next();
 });
 
 // Get a list of Entities
 router.get('/entities', permissionMiddlewareCreator.list(), (request, response, next) => {
-  // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#get-a-list-of-records
   next();
 });
 
 // Get a number of Entities
 router.get('/entities/count', permissionMiddlewareCreator.list(), (request, response, next) => {
-  // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#get-a-number-of-records
   next();
 });
 
 // Get a Entity
-router.get('/entities/:recordId(?!count)', permissionMiddlewareCreator.details(), (request, response, next) => {
-  // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#get-a-record
+router.get('/entities/:recordId', permissionMiddlewareCreator.details(), (request, response, next) => {
   next();
 });
 
 // Export a list of Entities
 router.get('/entities.csv', permissionMiddlewareCreator.export(), (request, response, next) => {
-  // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#export-a-list-of-records
   next();
 });
 
 // Delete a list of Entities
 router.delete('/entities', permissionMiddlewareCreator.delete(), (request, response, next) => {
-  // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#delete-a-list-of-records
   next();
 });
 

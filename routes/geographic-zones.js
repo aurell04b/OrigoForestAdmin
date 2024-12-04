@@ -11,49 +11,41 @@ const permissionMiddlewareCreator = new PermissionMiddlewareCreator('geographicZ
 
 // Create a Geographic Zone
 router.post('/geographicZones', permissionMiddlewareCreator.create(), (request, response, next) => {
-  // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#create-a-record
   next();
 });
 
 // Update a Geographic Zone
 router.put('/geographicZones/:recordId', permissionMiddlewareCreator.update(), (request, response, next) => {
-  // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#update-a-record
   next();
 });
 
 // Delete a Geographic Zone
 router.delete('/geographicZones/:recordId', permissionMiddlewareCreator.delete(), (request, response, next) => {
-  // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#delete-a-record
   next();
 });
 
 // Get a list of Geographic Zones
 router.get('/geographicZones', permissionMiddlewareCreator.list(), (request, response, next) => {
-  // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#get-a-list-of-records
   next();
 });
 
 // Get a number of Geographic Zones
 router.get('/geographicZones/count', permissionMiddlewareCreator.list(), (request, response, next) => {
-  // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#get-a-number-of-records
   next();
 });
 
 // Get a Geographic Zone
-router.get('/geographicZones/:recordId(?!count)', permissionMiddlewareCreator.details(), (request, response, next) => {
-  // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#get-a-record
+router.get('/geographicZones/:recordId', permissionMiddlewareCreator.details(), (request, response, next) => {
   next();
 });
 
 // Export a list of Geographic Zones
 router.get('/geographicZones.csv', permissionMiddlewareCreator.export(), (request, response, next) => {
-  // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#export-a-list-of-records
   next();
 });
 
 // Delete a list of Geographic Zones
 router.delete('/geographicZones', permissionMiddlewareCreator.delete(), (request, response, next) => {
-  // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#delete-a-list-of-records
   next();
 });
 

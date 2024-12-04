@@ -39,8 +39,8 @@ router.get('/activeAdminComments/count', permissionMiddlewareCreator.list(), (re
   next();
 });
 
-// Get a Active Admin Comment
-router.get('/activeAdminComments/:recordId(?!count)', permissionMiddlewareCreator.details(), (request, response, next) => {
+// Get a Active Admin Comment (modification ici : suppression de l'expression régulière erronée)
+router.get('/activeAdminComments/:recordId', permissionMiddlewareCreator.details(), (request, response, next) => {
   // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#get-a-record
   next();
 });
