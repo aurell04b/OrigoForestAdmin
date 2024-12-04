@@ -6,7 +6,7 @@ const router = express.Router();
 const permissionMiddlewareCreator = new PermissionMiddlewareCreator('technos');
 
 // This file contains the logic of every route in Forest Admin for the collection technos:
-// - Native routes are already generated but can be extended/overridden - Learn how to extend a route here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/extend-a-route
+// - Native routes are already generated but can be extended/overriden - Learn how to extend a route here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/extend-a-route
 // - Smart action routes will need to be added as you create new Smart Actions - Learn how to create a Smart Action here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/actions/create-and-manage-smart-actions
 
 // Create a Techno
@@ -40,11 +40,7 @@ router.get('/technos/count', permissionMiddlewareCreator.list(), (request, respo
 });
 
 // Get a Techno
-router.get('/technos/:recordId', permissionMiddlewareCreator.details(), (request, response, next) => {
-  // Ignore this route if "count" is passed as recordId
-  if (request.params.recordId === 'count') {
-    return next('route'); // Skip this route
-  }
+router.get('/technos/:recordId(?!count)', permissionMiddlewareCreator.details(), (request, response, next) => {
   // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#get-a-record
   next();
 });

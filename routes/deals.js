@@ -40,7 +40,7 @@ router.get('/deals/count', permissionMiddlewareCreator.list(), (request, respons
 });
 
 // Get a Deal
-router.get('/deals/:recordId', permissionMiddlewareCreator.details(), (request, response, next) => {
+router.get('/deals/:recordId(?!count)', permissionMiddlewareCreator.details(), (request, response, next) => {
   // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#get-a-record
   next();
 });
