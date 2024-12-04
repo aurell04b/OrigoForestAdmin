@@ -1,0 +1,27 @@
+{
+    "development": {
+      "username": "origo",
+      "password": "OrigoBDD01",
+      "database": "forestadmin",
+      "host": "127.0.0.1",
+      "dialect": "postgres",
+      "port": 5432
+    },
+    "test": {
+      "username": "origo",
+      "password": "OrigoBDD01",
+      "database": "forestadmin_test",
+      "host": "127.0.0.1",
+      "dialect": "postgres",
+      "port": 5432
+    },
+    "production": {
+      "username": "origo",
+      "password": "OrigoBDD01",
+      "database": "forestadmin",
+      "host": "127.0.0.1",
+      "dialect": "postgres",
+      "port": 5432
+    }
+  }
+  

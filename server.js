@@ -1,104 +1,56 @@
-const express = require('express');
-const requireAll = require('require-all');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const morgan = require('morgan');
-const { Sequelize } = require('sequelize');
-const { createAgent } = require('@forestadmin/agent');
-const { createSequelizeDataSource } = require('@forestadmin/datasource-sequelize');
+require('dotenv').config();
+const debug = require('debug')('{name}:server');
+const http = require('http');
+const chalk = require('chalk');
+const app = require('./app');
 
-// Configuration de Sequelize
-const sequelize = new Sequelize(process.env.DATABASE_URL, {
-  dialect: 'postgres', // Changez ce dialecte en fonction de votre base de données (par exemple 'mysql', 'sqlite', etc.)
-  logging: false,
-});
+function normalizePort(val) {
+  const port = parseInt(val, 10);
 
-// Initialisation de l'application Express
-const app = express();
+  if (Number.isNaN(port)) { return val; }
+  if (port >= 0) { return port; }
 
-let allowedOrigins = [/\.forestadmin\.com$/, /localhost:\d{4}$/, /.*origo\.energy$/];
-
-if (process.env.CORS_ORIGINS) {
-  allowedOrigins = allowedOrigins.concat(process.env.CORS_ORIGINS.split(','));
+  return false;
 }
 
-const corsConfig = {
-  origin: function (origin, callback) {
-    console.log(`[CORS Debug] Origin: ${origin}`);
-    if (!origin || allowedOrigins.some((regex) => regex.test(origin))) {
-      console.log(`[CORS Debug] Origin allowed: ${origin}`);
-      callback(null, true);
-    } else {
-      console.log(`[CORS Debug] Origin not allowed: ${origin}`);
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  allowedHeaders: ['Forest-Context-Url', 'Authorization', 'X-Requested-With', 'Content-Type'],
-  maxAge: 86400, // NOTICE: 1 day
-  credentials: true,
-};
+const port = normalizePort(process.env.PORT || process.env.APPLICATION_PORT || '3310');
+app.set('port', port);
 
-// Middleware de journalisation des requêtes
-app.use(morgan('combined'));
+const server = http.createServer(app);
+server.listen(port);
 
-// Middleware CORS (appliqué globalement avant les routes spécifiques)
-app.use(cors(corsConfig));
-
-// Utilisation de bodyParser et cookieParser
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Initialisation de l'agent Forest Admin
-const agent = createAgent({
-  authSecret: process.env.FOREST_AUTH_SECRET,
-  envSecret: process.env.FOREST_ENV_SECRET,
-  isProduction: process.env.NODE_ENV === 'production',
-});
-
-// Ajout du datasource Sequelize à l'agent
-agent.addDataSource(createSequelizeDataSource(sequelize));
-
-// Middleware pour l'agent Forest Admin
-app.use(agent.middleware());
-
-// Chargement des routes
-requireAll({
-  dirname: path.join(__dirname, 'routes'),
-  recursive: true,
-  resolve: (Module) => {
-    if (Module.router) {
-      app.use('/forest', Module.router);
-    } else {
-      app.use('/forest', Module);
-    }
-  },
-});
-
-// Charger les middlewares (si existants)
-requireAll({
-  dirname: path.join(__dirname, 'middlewares'),
-  recursive: true,
-  resolve: (Module) => Module(app),
-});
-
-// Ajouter un middleware pour intercepter toutes les requêtes qui ne correspondent pas aux routes définies
-app.use((req, res, next) => {
-  console.log(`[Request Processing Complete] Path: ${req.path}`);
-  if (!req.route) {
-    console.error(`[404 Not Found] Path: ${req.path}`);
-    return res.status(404).json({ error: 'Not Found' });
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
   }
-  next();
-});
 
-// Gestionnaire d'erreurs
-app.use((err, req, res, next) => {
-  console.error(`[Error Handler] Error: ${err.message}`);
-  res.status(err.status || 500).json({ error: err.message });
-});
+  const bind = typeof port === 'string'
+    ? `Pipe ${port}`
+    : `Port ${port}`;
 
-module.exports = app;
+  switch (error.code) {
+    case 'EACCES':
+      console.error(`${bind} requires elevated privileges`);
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(`${bind} is already in use`);
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+function onListening() {
+  const addr = server.address();
+  const bind = typeof addr === 'string'
+    ? `pipe ${addr}`
+    : `port ${addr.port}`;
+  debug(`Listening on ${bind}`);
+
+  console.log(chalk.cyan(`Your application is listening on ${bind}.`));
+}
+
+server.on('error', onError);
+server.on('listening', onListening);
