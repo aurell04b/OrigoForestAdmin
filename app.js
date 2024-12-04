@@ -7,8 +7,8 @@ const cors = require('cors');
 const { expressjwt } = require('express-jwt');
 const morgan = require('morgan');
 const jwt = require('jsonwebtoken');
-const { errorHandler, ensureAuthenticated, PUBLIC_ROUTES } = require('forest-express-sequelize');
-const { createAgent, createSequelizeDataSource } = require('@forestadmin/agent');
+const { createAgent } = require('@forestadmin/agent');
+const { createSequelizeDataSource } = require('@forestadmin/datasource-sequelize');
 
 const app = express();
 
@@ -94,20 +94,22 @@ app.use((req, res, next) => {
   next();
 });
 
-// Ensure authenticated for non-public routes
-app.use('/forest', (request, response, next) => {
-  console.log(`[Ensure Authenticated] Path: ${request.path}`);
-  if (PUBLIC_ROUTES.includes(request.url)) {
-    return next();
-  }
-  
-  ensureAuthenticated(request, response, (err) => {
-    if (err) {
-      console.error(`[Ensure Authenticated] Erreur: ${err.message}`);
-      return response.status(401).json({ error: 'Authentication failed' });
-    }
-    next();
-  });
+// Initialisation de l'agent Forest Admin
+const agent = createAgent({
+  authSecret: process.env.FOREST_AUTH_SECRET,
+  envSecret: process.env.FOREST_ENV_SECRET,
+  isProduction: process.env.NODE_ENV === 'production',
+})
+  .addDataSource(createSequelizeDataSource({
+    modelsDir: path.join(__dirname, 'models'),
+    sequelize: require('./models').sequelize,
+  }));
+
+// Utilisation de l'agent comme middleware avec Express
+agent.mount(app).then(() => {
+  console.log('[Forest Admin] Agent initialisé avec succès.');
+}).catch((err) => {
+  console.error('[Forest Admin] Erreur lors de l\'initialisation de l\'agent:', err);
 });
 
 // Route pour gérer l'authentification et renvoyer une réponse explicite
@@ -142,20 +144,7 @@ app.post('/forest/authentication', (req, res) => {
   }
 });
 
-// Initialisation de l'agent Forest Admin
-const agent = createAgent({
-  authSecret: process.env.FOREST_AUTH_SECRET,
-  envSecret: process.env.FOREST_ENV_SECRET,
-  isProduction: process.env.NODE_ENV === 'production',
-})
-  .addDataSource(createSequelizeDataSource({
-    modelsDir: path.join(__dirname, 'models'),
-    sequelize: require('./models').sequelize,
-  }));
-
-// Utilisation de l'agent comme middleware
-app.use('/forest', agent.expressMiddleware());
-
+// Chargement des routes
 requireAll({
   dirname: path.join(__dirname, 'routes'),
   recursive: true,
