@@ -21,7 +21,7 @@ if (process.env.CORS_ORIGINS) {
 
 const corsConfig = {
   origin: allowedOrigins,
-  allowedHeaders: ['Authorization', 'X-Requested-With', 'Content-Type'],
+  allowedHeaders: ['Authorization', 'X-Requested-With', 'Content-Type', 'Forest-Context-Url'],
   maxAge: 86400, // NOTICE: 1 day
   credentials: true,
 };

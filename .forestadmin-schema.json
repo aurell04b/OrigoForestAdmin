@@ -21,7 +21,7 @@
       "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
-      "reference": "adminUsers.authorId",
+      "reference": "adminUsers.id",
       "inverseOf": null,
       "relationship": "BelongsTo",
       "validations": []
@@ -668,8 +668,8 @@
       "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
-      "reference": "entities.entity_id",
-      "inverseOf": null,
+      "reference": "entities.id",
+      "inverseOf": "contact",
       "relationship": "BelongsTo",
       "validations": []
     }, {
@@ -802,7 +802,7 @@
       "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
-      "reference": "activeAdminComments.resourceId",
+      "reference": "activeAdminComments.id",
       "inverseOf": null,
       "relationship": "HasMany",
       "validations": []
@@ -893,8 +893,8 @@
       "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
-      "reference": "entities.entity_id",
-      "inverseOf": null,
+      "reference": "entities.id",
+      "inverseOf": "deals",
       "relationship": "BelongsTo",
       "validations": []
     }, {
@@ -924,7 +924,7 @@
       "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
-      "reference": "adminUsers.manager_id",
+      "reference": "adminUsers.id",
       "inverseOf": null,
       "relationship": "BelongsTo",
       "validations": []
@@ -985,8 +985,8 @@
       "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
-      "reference": "products.dealId",
-      "inverseOf": null,
+      "reference": "products.id",
+      "inverseOf": "deal",
       "relationship": "HasMany",
       "validations": []
     }, {
@@ -1087,8 +1087,8 @@
       "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
-      "reference": "entities.parent_id",
-      "inverseOf": null,
+      "reference": "entities.id",
+      "inverseOf": "entity",
       "relationship": "HasMany",
       "validations": []
     }, {
@@ -1163,7 +1163,7 @@
       "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
-      "reference": "consumptionPoints.entityId",
+      "reference": "consumptionPoints.id",
       "inverseOf": null,
       "relationship": "HasMany",
       "validations": []
@@ -1179,8 +1179,8 @@
       "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
-      "reference": "contacts.entityId",
-      "inverseOf": null,
+      "reference": "contacts.id",
+      "inverseOf": "entity",
       "relationship": "HasOne",
       "validations": []
     }, {
@@ -1210,8 +1210,8 @@
       "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
-      "reference": "deals.entityId",
-      "inverseOf": null,
+      "reference": "deals.id",
+      "inverseOf": "entity",
       "relationship": "HasMany",
       "validations": []
     }, {
@@ -1241,8 +1241,8 @@
       "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
-      "reference": "entities.parent_id",
-      "inverseOf": null,
+      "reference": "entities.id",
+      "inverseOf": "entity",
       "relationship": "BelongsTo",
       "validations": []
     }, {
@@ -1317,8 +1317,8 @@
       "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
-      "reference": "products.entityId",
-      "inverseOf": null,
+      "reference": "products.id",
+      "inverseOf": "entity",
       "relationship": "HasMany",
       "validations": []
     }, {
@@ -1565,7 +1565,7 @@
       "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
-      "reference": "geographicZones.geographic_zone_id",
+      "reference": "geographicZones.id",
       "inverseOf": null,
       "relationship": "BelongsTo",
       "validations": []
@@ -1596,7 +1596,7 @@
       "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
-      "reference": "technos.techno_id",
+      "reference": "technos.id",
       "inverseOf": null,
       "relationship": "BelongsTo",
       "validations": []
@@ -1704,6 +1704,21 @@
       "inverseOf": null,
       "validations": []
     }, {
+      "field": "centraleDate",
+      "type": "Date",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
       "field": "commentProduct",
       "type": "String",
       "defaultValue": null,
@@ -1745,8 +1760,8 @@
       "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
-      "reference": "deals.deal_id",
-      "inverseOf": null,
+      "reference": "deals.id",
+      "inverseOf": "products",
       "relationship": "BelongsTo",
       "validations": []
     }, {
@@ -1766,36 +1781,6 @@
       "validations": []
     }, {
       "field": "definitif",
-      "type": "Boolean",
-      "defaultValue": false,
-      "enums": null,
-      "integration": null,
-      "isFilterable": true,
-      "isPrimaryKey": false,
-      "isReadOnly": false,
-      "isRequired": false,
-      "isSortable": true,
-      "isVirtual": false,
-      "reference": null,
-      "inverseOf": null,
-      "validations": []
-    }, {
-      "field": "indexedPrice",
-      "type": "Boolean",
-      "defaultValue": false,
-      "enums": null,
-      "integration": null,
-      "isFilterable": true,
-      "isPrimaryKey": false,
-      "isReadOnly": false,
-      "isRequired": false,
-      "isSortable": true,
-      "isVirtual": false,
-      "reference": null,
-      "inverseOf": null,
-      "validations": []
-    }, {
-      "field": "gridConnected",
       "type": "Boolean",
       "defaultValue": false,
       "enums": null,
@@ -1874,9 +1859,9 @@
       "inverseOf": null,
       "validations": []
     }, {
-      "field": "tva",
-      "type": "Number",
-      "defaultValue": "0",
+      "field": "deliveryRequirement",
+      "type": "String",
+      "defaultValue": null,
       "enums": null,
       "integration": null,
       "isFilterable": true,
@@ -1889,8 +1874,8 @@
       "inverseOf": null,
       "validations": []
     }, {
-      "field": "centraleDate",
-      "type": "Date",
+      "field": "devise",
+      "type": "String",
       "defaultValue": null,
       "enums": null,
       "integration": null,
@@ -1930,9 +1915,24 @@
       "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
-      "reference": "entities.entity_id",
-      "inverseOf": null,
+      "reference": "entities.id",
+      "inverseOf": "products",
       "relationship": "BelongsTo",
+      "validations": []
+    }, {
+      "field": "exchangeRate",
+      "type": "Number",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
       "validations": []
     }, {
       "field": "geographicZone",
@@ -1946,7 +1946,7 @@
       "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
-      "reference": "geographicZones.geographicZoneId",
+      "reference": "geographicZones.id",
       "inverseOf": null,
       "relationship": "BelongsTo",
       "validations": []
@@ -1966,9 +1966,9 @@
       "inverseOf": null,
       "validations": []
     }, {
-      "field": "nFacture",
-      "type": "String",
-      "defaultValue": null,
+      "field": "gridConnected",
+      "type": "Boolean",
+      "defaultValue": false,
       "enums": null,
       "integration": null,
       "isFilterable": true,
@@ -1988,6 +1988,21 @@
       "integration": null,
       "isFilterable": true,
       "isPrimaryKey": true,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "indexedPrice",
+      "type": "Boolean",
+      "defaultValue": false,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
       "isReadOnly": false,
       "isRequired": false,
       "isSortable": true,
@@ -2041,37 +2056,7 @@
       "inverseOf": null,
       "validations": []
     }, {
-      "field": "origoEnergy",
-      "type": "Boolean",
-      "defaultValue": false,
-      "enums": null,
-      "integration": null,
-      "isFilterable": true,
-      "isPrimaryKey": false,
-      "isReadOnly": false,
-      "isRequired": false,
-      "isSortable": true,
-      "isVirtual": false,
-      "reference": null,
-      "inverseOf": null,
-      "validations": []
-    }, {
-      "field": "pnl",
-      "type": "Number",
-      "defaultValue": 0,
-      "enums": null,
-      "integration": null,
-      "isFilterable": true,
-      "isPrimaryKey": false,
-      "isReadOnly": false,
-      "isRequired": false,
-      "isSortable": true,
-      "isVirtual": false,
-      "reference": null,
-      "inverseOf": null,
-      "validations": []
-    }, {
-      "field": "deliveryRequirement",
+      "field": "nFacture",
       "type": "String",
       "defaultValue": null,
       "enums": null,
@@ -2086,53 +2071,9 @@
       "inverseOf": null,
       "validations": []
     }, {
-      "field": "position",
-      "type": "Number",
-      "defaultValue": "Selectioner la position",
-      "enums": null,
-      "integration": null,
-      "isFilterable": true,
-      "isPrimaryKey": false,
-      "isReadOnly": false,
-      "isRequired": false,
-      "isSortable": true,
-      "isVirtual": false,
-      "reference": null,
-      "inverseOf": null,
-      "validations": []
-    }, {
-      "field": "price",
-      "type": "Number",
-      "defaultValue": 0,
-      "enums": null,
-      "integration": null,
-      "isFilterable": true,
-      "isPrimaryKey": false,
-      "isReadOnly": false,
-      "isRequired": false,
-      "isSortable": true,
-      "isVirtual": false,
-      "reference": null,
-      "inverseOf": null,
-      "validations": []
-    }, {
-      "field": "devise",
-      "type": "String",
-      "enums": null,
-      "integration": null,
-      "isFilterable": true,
-      "isPrimaryKey": false,
-      "isReadOnly": false,
-      "isRequired": false,
-      "isSortable": true,
-      "isVirtual": false,
-      "reference": null,
-      "inverseOf": null,
-      "validations": []
-    }, {
-      "field": "exchangeRate",
-      "type": "Number",
-      "defaultValue": 0.000,
+      "field": "origoEnergy",
+      "type": "Boolean",
+      "defaultValue": false,
       "enums": null,
       "integration": null,
       "isFilterable": true,
@@ -2160,7 +2101,7 @@
       "inverseOf": null,
       "validations": []
     }, {
-      "field": "validityPeriod",
+      "field": "pnl",
       "type": "Number",
       "defaultValue": 0,
       "enums": null,
@@ -2174,8 +2115,52 @@
       "reference": null,
       "inverseOf": null,
       "validations": []
-    },
-     {
+    }, {
+      "field": "position",
+      "type": "Number",
+      "defaultValue": "Selectioner la position",
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "prePaid",
+      "type": "Boolean",
+      "defaultValue": false,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "price",
+      "type": "Number",
+      "defaultValue": 0,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
       "field": "productionEnd",
       "type": "Date",
       "defaultValue": null,
@@ -2270,7 +2255,7 @@
       "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
-      "reference": "technos.technoId",
+      "reference": "technos.id",
       "inverseOf": null,
       "relationship": "BelongsTo",
       "validations": []
@@ -2301,11 +2286,42 @@
       "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "tva",
+      "type": "Number",
+      "defaultValue": "",
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
       "inverseOf": null,
       "validations": []
     }, {
       "field": "updatedAt",
       "type": "Date",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "validityPeriod",
+      "type": "Number",
       "defaultValue": null,
       "enums": null,
       "integration": null,
@@ -2330,21 +2346,6 @@
       "isRequired": false,
       "isSortable": false,
       "isVirtual": true,
-      "reference": null,
-      "inverseOf": null,
-      "validations": []
-    }, {
-      "field": "prePaid",
-      "type": "Boolean",
-      "defaultValue": false,
-      "enums": null,
-      "integration": null,
-      "isFilterable": true,
-      "isPrimaryKey": false,
-      "isReadOnly": false,
-      "isRequired": false,
-      "isSortable": true,
-      "isVirtual": false,
       "reference": null,
       "inverseOf": null,
       "validations": []
@@ -2512,11 +2513,13 @@
     "actions": []
   }],
   "meta": {
-    "database_type": "postgres",
     "liana": "forest-express-sequelize",
-    "liana_version": "7.2.2",
-    "engine": "nodejs",
-    "engine_version": "14.16.0",
-    "orm_version": "5.15.2"
+    "liana_version": "8.5.15",
+    "stack": {
+      "database_type": "postgres",
+      "engine": "nodejs",
+      "engine_version": "18.20.5",
+      "orm_version": "5.15.2"
+    }
   }
 }
